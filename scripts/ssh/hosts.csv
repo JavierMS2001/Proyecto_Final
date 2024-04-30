@@ -1,0 +1,5 @@
+user,password,host
+vagrant,vagrant,192.168.10.31
+vagrant,vagrant,192.168.10.32
+vagrant,vagrant,192.168.10.33
+vagrant,vagrant,192.168.10.34
