@@ -43,7 +43,7 @@ check_sshpass(){
 		echo
 	else
 		echo "sshpass NO está instalado"
-		read -p "¿Deseas instalar sshpass?" 
+		echo "¿Deseas instalar sshpass?" 
 		read -p "En caso de no instalarlo, se cerrará el script. (s/n) " install
 		if [ $install = "s" ]; then
 			apt-get install sshpass &> /dev/null
