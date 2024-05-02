@@ -113,6 +113,7 @@ ssh_copy(){
 		fi
 	done < "$users"
 
+	echo -e "\e$yellow \nAVISO!\e$white Recuerda que debes conectarte a las máquinas con: sudo ssh <usuario>@<host>\e$white"
 }
 
 	####	  COMIENZO	####
@@ -123,4 +124,3 @@ check_users_file
 check_sshpass
 check_rsa_id
 ssh_copy
-
