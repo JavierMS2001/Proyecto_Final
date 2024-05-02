@@ -20,13 +20,13 @@ key_path=/root/.ssh/id_rsa.pub
 
 	####	  FUNCIONES	####
 
-check_root() {
-	if [ $UID -ne 0 ]
-	then
-		echo -e "\e$red \nERROR! Asegurate de ejecutar el script como usuario root o privilegios de super usuario.\e$white"
-	exit 1
-	fi
-}
+#check_root() {
+#	if [ $UID -ne 0 ]
+#	then
+#		echo -e "\e$red \nERROR! Asegurate de ejecutar el script como usuario root o privilegios de super usuario.\e$white"
+#	exit 1
+#	fi
+#}
 
 check_param(){
     if [ $params -ne 1 ]; then    
@@ -118,7 +118,6 @@ ssh_copy(){
 
 	####	  COMIENZO	####
 
-check_root
 check_param
 check_users_file
 check_sshpass

@@ -1,0 +1,21 @@
+# Entre lo [], definimos el nombre de un grupo, bajo
+# este texto, introducimos los hosts que pertenecen
+# a dicho grupo.
+
+[debian]
+
+192.168.10.31
+192.168.10.32
+
+[redhat]
+
+192.168.10.33
+192.168.10.34
+
+# De la siguiente forma podemos definir nombres a cada máquina,
+# con la sintaxis: <nombre_host> ansible_host=<ip_host>
+
+dns ansible_host=192.168.10.31
+mariadb-1 ansible_host=192.168.10.32
+mariadb-2 ansible_host=192.168.10.33
+wordpress ansible_host=192.168.10.34
