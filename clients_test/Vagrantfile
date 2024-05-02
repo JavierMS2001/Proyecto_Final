@@ -1,0 +1,60 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.define "managed1" do |managed1|
+    managed1.vm.box = "debian/bookworm64"
+    managed1.vm.hostname = "Managed1"
+    managed1.vm.network :private_network, ip: "192.168.10.31"
+    managed1.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--ioapic", "on"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--name", "managed1"]
+      v.customize ["modifyvm", :id, "--memory", 2048]
+      v.customize ["modifyvm", :id, "--cpus", 2]
+  end
+  managed1.vm.provision "shell", path: "./debian.sh"
+  end
+
+
+  config.vm.define "managed2" do |managed2|
+    managed2.vm.box = "debian/bookworm64"
+    managed2.vm.hostname = "Managed2"
+    managed2.vm.network :private_network, ip: "192.168.10.32"
+    managed2.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--ioapic", "on"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--name", "managed2"]
+      v.customize ["modifyvm", :id, "--memory", 2048]
+      v.customize ["modifyvm", :id, "--cpus", 2]
+  end
+  managed2.vm.provision "shell", path: "./debian.sh"
+  end
+
+
+  config.vm.define "managed3" do |managed3|
+    managed3.vm.box = "generic/rhel9"
+    managed3.vm.hostname = "Managed3"
+    managed3.vm.network :private_network, ip: "192.168.10.33"
+    managed3.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--ioapic", "on"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--name", "managed3"]
+      v.customize ["modifyvm", :id, "--memory", 2048]
+      v.customize ["modifyvm", :id, "--cpus", 2]
+  end
+  managed3.vm.provision "shell", path: "./rhel9.sh"
+  end
+
+  config.vm.define "managed4" do |managed4|
+    managed4.vm.box = "generic/rhel9"
+    managed4.vm.hostname = "Managed4"
+    managed4.vm.network :private_network, ip: "192.168.10.34"
+    managed4.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--ioapic", "on"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--name", "managed4"]
+      v.customize ["modifyvm", :id, "--memory", 2048]
+      v.customize ["modifyvm", :id, "--cpus", 2]
+    end
+    managed4.vm.provision "shell", path: "./rhel9.sh"
+  end
+end
