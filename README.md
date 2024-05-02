@@ -3,7 +3,7 @@
 ## Introducción
 Repositorio donde iré subiendo el código y demás contenido necesario para mi proyecto final.
 
-# ¿En qué consistirá?
+### ¿En qué consistirá?
 Aprovechando la plataforma de Amazon Web Services, y el servidor Proxmox del instituto, levantaré distintas máquinas. Una de estas máquinas estará en proxmox, y contará con Ansible, el cuál es un software pensado para la automatización de tareas, esta máquina será conocida como ***el nodo de control***. El resto de máquinas, estarán en AWS y serán ***nodos administrados***, es decir, son equipos administrados por el ***nodo de control***. Estos ***nodos administrados*** proveerán distintos servicios. Los cuales son los siguientes:
   - ***Nodo A.*** *Un servidor web con Apache, que ofrezca Wordpress.*
   - ***Nodo B.*** *Un servidor mariaDB, que ofrezca acceso remoto.*
@@ -14,7 +14,7 @@ Todo ello con la peculiaridad de que los servicios serán instalados y configura
 ## Contenidos del repositorio
 Aquí ire incluyendo un breve índice acerca del contenido que vaya subiendo en el repositorio.
 
-# 1. scripts
+### 1. scripts
   Directorio donde guardo los scripts creados por mí, necesarios para la realización del proyecto.
   - **InstalarAnsible.sh**  *Script que debe ejecutarse con sudo o como root, el cual instala Ansible y los paquetes necesarios para utilizarlo.*
   - **ssh**  *Directorio con contenido necesario para realizar la conexión ssh entre nodo administrador y administrado.*
