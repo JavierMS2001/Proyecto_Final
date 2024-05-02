@@ -12,7 +12,7 @@ white="[0m"
 red="[31m"
 yellow="[33m"
 green="[32m"
-
+option=0
 
 ###	FUNCIONES	###
 
@@ -22,6 +22,30 @@ check_root() {
 		echo -e "\e$red \nERROR! Asegurate de ejecutar el script con usuario root o privilegios de super usuario.\e$white"
 	exit 1
 	fi
+}
+
+start_msg(){
+	while [ $option -ne 1 ]; do
+		clear
+		echo -e "\e$yellow"
+		echo -e "#################################################################"
+		echo -e "#								#"
+		echo -e "#				AVISO				#"
+		echo -e "#								#"
+		echo -e "#	Este script instalará programas y realizará cambios	#"
+		echo -e "#		en el sistema.	¿Quieres continuar? (s/n)	#"
+		echo -e "#								#"
+		echo -e "#################################################################\e$white"
+		read start
+		if [ $start == "s" ]; then
+			option=1
+		elif [ $start == "n" ]; then
+			echo -e "\nSaliendo del script..."
+			exit 1
+		else
+			echo -e "\e$red \nSelecciona una opción valida!"
+		fi
+	done	
 }
 
 check_requirements(){
@@ -49,7 +73,7 @@ check_requirements(){
 
 install_python3(){
 	if sudo apt-get install python3 -y &> /dev/null; then
-		echo -e "\e$yellow \nPython3 instalado correctamente en el sistema!\e$white"
+		echo -e "\e$green \nPython3 instalado correctamente en el sistema!\e$white"
 	else
 		echo -e "\e$red \nHubo un error al instalar Python3! \e$yellow \nAsegurate de tener los repositorios actualizados, conexión a internet y prueba a ejecutar de nuevo el script.\e$white"
 		exit 1
@@ -58,7 +82,7 @@ install_python3(){
 
 install_pip(){
 	if sudo apt-get install pip -y &> /dev/null; then
-		echo -e "\e$yellow \nPip instalado correctamente en el sistema!\e$white"
+		echo -e "\e$green \nPip instalado correctamente en el sistema!\e$white"
 	else
 		echo -e "\e$red \nHubo un error al instalar Pip! \e$yellow \nAsegurate de tener los repositorios actualizados, conexión a internet y prueba a ejecutar de nuevo el script.\e$white"
 		exit 1
@@ -76,6 +100,7 @@ install_ansible(){
 
 ###	 CÓDIGO		###
 
+start_msg
 check_root
 check_requirements
 install_ansible
