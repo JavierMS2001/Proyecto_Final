@@ -105,7 +105,7 @@ ssh_copy(){
 		fi
 	done < "$users"
 
-	echo -e "\e$yellow \nAVISO!\e$white Recuerda que debes conectarte a las máquinas con: sudo ssh <usuario>@<host>\e$white"
+	echo -e "\e$yellow \nAVISO!\e$white Recuerda confirmar que puedes conectarte a las máquinas con: ssh <usuario>@<host>\e$white"
 }
 
 	####	  COMIENZO	####

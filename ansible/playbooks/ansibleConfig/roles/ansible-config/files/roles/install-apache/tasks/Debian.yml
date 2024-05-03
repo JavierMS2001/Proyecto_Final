@@ -1,0 +1,39 @@
+---
+
+- name: Instalar Apache
+  apt:
+    name: apache2
+    state: latest
+
+- name: Instalar UFW
+  apt:
+    name: ufw
+    state: present
+
+- name: Habilitar UFW
+  ufw:
+    state: enabled
+
+- name: Abrir puerto 22
+  ufw:
+    rule: allow
+    port: "22"
+
+- name: Abrir puerto 80
+  ufw:
+    rule: allow
+    port: "80"
+
+- name: Abrir puerto 443
+  ufw:
+    rule: allow
+    port: "443"
+
+- name: Reiniciar firewall
+  ufw:
+    state: reloaded
+  
+- name: Reiniciar Apache
+  service:
+    name: apache2
+    state: restarted

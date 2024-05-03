@@ -1,0 +1,6 @@
+---
+- include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Actualizados
+  debug:
+    msg: "Paquetes actualizados en {{ ansible_host }}"

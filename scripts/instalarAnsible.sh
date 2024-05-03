@@ -64,7 +64,7 @@ check_requirements(){
 	fi
 
 	if sudo apt-get install software-properties-common -y &> /dev/null; then
-		echo -e "\e$green \nDependencias necesarias para instalar Ansible instaladas y actualizadas.\e$yellow \nSe procederá con la instalación de Ansible."
+		echo -e "\e$green \nDependencias necesarias para instalar Ansible instaladas y actualizadas.\e$white"
 	else
 		echo -e "\e$red \nHubo un error al instalar las dependencias necesarias para instalar Ansible. \e$yellow \nAsegurate de tener los repositorios actualizados, conexión a internet y prueba a ejecutar de nuevo el script. \e$white"
 		exit 1
@@ -90,6 +90,7 @@ install_pip(){
 }
 
 install_ansible(){
+	echo -e "\e$yellow\e|Se procederá con la instalación de Ansible"
 	if sudo apt-get install ansible -y &> /dev/null; then
 		echo -e "\e$green \nAnsible instalado correctamente en el sistema!\e$white"
 	else
@@ -101,6 +102,14 @@ install_ansible(){
 ###	 CÓDIGO		###
 
 start_msg
+
+clear
+
 check_root
 check_requirements
-install_ansible
+
+if ansible --version &> /dev/null; then
+	echo -e "\e$green\nAnsible ya se encuentra instalado en el sistema!"
+else
+	install_ansible
+fi

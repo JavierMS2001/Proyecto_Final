@@ -1,0 +1,6 @@
+---
+- name: Actualizar repositorios
+  hosts: all
+  become: true
+  roles:
+    - role: update-packages

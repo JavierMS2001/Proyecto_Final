@@ -1,0 +1,39 @@
+---
+
+- name: Instalar HTTPD
+  yum:
+    name: httpd
+    state: latest
+  retries: 3
+  delay: 10
+
+- name: Abrir puertos del servicio HTTPD con firewalld
+  firewalld:
+    service: httpd
+    permanent: true
+    state: enabled
+
+- name: Recargar firewalld
+  service:
+    name: firewalld
+    state: reloaded
+
+- name: Desactivar SELinux
+  template:
+    src: files/config
+    dest: /etc/selinux/config
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reiniciar equipo
+  reboot:
+    reboot_timeout: 30
+    post_reboot_delay: 30
+
+- name: Reiniciar apache
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes
+

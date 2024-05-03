@@ -1,0 +1,14 @@
+---
+
+- name: Actualizar caché - Debian
+  apt:
+    update_cache: yes
+  retries: 3
+  delay: 10
+
+- name: Actualizar paquetes - Debian
+  apt:
+    name: "*"
+    state: latest
+  retries: 3
+  delay: 10
