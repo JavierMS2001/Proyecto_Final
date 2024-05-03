@@ -1,0 +1,38 @@
+---
+
+# Comprobación /etc/ansible/.
+
+- name: Comprobar si existe /etc/ansible
+  stat:
+    path: "/etc/ansible/"
+  register: ansible_dir
+
+# Creación de los distintos archivos y directorios de 
+# configuración en caso de no existir.
+
+- name: Crear directorio ansible/
+  file:
+    path: "/etc/ansible/"
+    state: directory
+  when: ansible_dir.stat.islnk is not defined
+
+- name: Establecer un ansible.cfg configurado
+  copy:
+    src: "files/ansible.cfg"
+    dest: "/etc/ansible/ansible.cfg"
+    force: no
+
+- name: Establecer archivo hosts configurado
+  copy:
+    src: "files/hosts"
+    dest: "/etc/ansible/hosts"
+    force: no
+
+- name: Establecer directorio roles/
+  copy:
+    src: "files/roles/"
+    dest: "/etc/ansible/roles/"
+    force: no
+
+- debug:
+    msg: "Directorio /etc/ansible/ configurado correctamente!"

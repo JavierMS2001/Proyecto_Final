@@ -1,0 +1,6 @@
+---
+- name: Generar la configuración de Ansible
+  hosts: localhost
+  become: true
+  roles:
+    - role: ansible-config
