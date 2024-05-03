@@ -28,18 +28,18 @@ start_msg(){
 	while [ $option -ne 1 ]; do
 		clear
 		echo -e "\e$yellow"
-		echo -e "#################################################################"
-		echo -e "#								#"
-		echo -e "#				AVISO				#"
-		echo -e "#								#"
-		echo -e "#	Este script instalará programas y realizará cambios	#"
-		echo -e "#		en el sistema.	¿Quieres continuar? (s/n)	#"
-		echo -e "#								#"
-		echo -e "#################################################################\e$white"
+		echo -e "	####################################################################"
+		echo -e "	#								   #"
+		echo -e "	#				AVISO				   #"
+		echo -e "	#								   #"
+		echo -e "	#	Este script instalará programas y realizará cambios	   #"
+		echo -e "	#		en el sistema.	¿Quieres continuar? (s/n)	   #"
+		echo -e "	#								   #"
+		echo -e "	####################################################################\e$white"
 		read start
-		if [ $start == "s" ]; then
+		if [ ${start,,} == "s" ]; then
 			option=1
-		elif [ $start == "n" ]; then
+		elif [ ${start,,} == "n" ]; then
 			echo -e "\nSaliendo del script..."
 			exit 1
 		else

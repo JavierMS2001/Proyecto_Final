@@ -34,5 +34,6 @@
     dest: "/etc/ansible/roles/"
     force: no
 
-- debug:
+- name: Configuración finalizada
+  debug:
     msg: "Directorio /etc/ansible/ configurado correctamente!"

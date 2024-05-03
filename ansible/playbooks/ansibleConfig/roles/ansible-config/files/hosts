@@ -8,9 +8,9 @@
 [debian]
 
 dns ansible_host=192.168.10.31
-mariadb-1 ansible_host=192.168.10.32
+wordpress-1 ansible_host=192.168.10.32
 
 [redhat]
 
-mariadb-2 ansible_host=192.168.10.33
-wordpress ansible_host=192.168.10.34
+mariadb ansible_host=192.168.10.33
+wordpress-2 ansible_host=192.168.10.34

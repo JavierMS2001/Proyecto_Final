@@ -20,14 +20,6 @@ key_path=/root/.ssh/id_rsa.pub
 
 	####	  FUNCIONES	####
 
-#check_root() {
-#	if [ $UID -ne 0 ]
-#	then
-#		echo -e "\e$red \nERROR! Asegurate de ejecutar el script como usuario root o privilegios de super usuario.\e$white"
-#	exit 1
-#	fi
-#}
-
 check_param(){
     if [ $params -ne 1 ]; then    
         echo -e "\e$red \nERROR! Número de parámetros incorrectos.\e$white"
@@ -53,7 +45,7 @@ check_sshpass(){
 		echo -e "\e$red \nPaquete sshpass NO está instalado"
 		echo -e "\e$yellow¿Deseas instalar sshpass? En caso de no instalarlo, se cerrará el script. (s/n)\e$white" 
 		read install
-		if [ $install = "s" ]; then
+		if [ ${install,,} = "s" ]; then
 			if sudo apt-get install sshpass -y &> /dev/null; then
 				echo -e "\e$green \nPaquete sshpass instalado con éxito!"
 			else
@@ -73,12 +65,12 @@ check_rsa_id(){
 		read key
 		echo
 
-		if [ $key == "s" ]; then
+		if [ ${key,,} == "s" ]; then
 			echo  -e "\e$yellow \nSe eliminará la clave almacenada en .ssh/ y se creará una nueva.\e$white"
 			sudo rm ~/.ssh/id_rsa.pub
 			sudo rm ~/.ssh/id_rsa
 			key_gen
-		elif [ $key == "n" ]; then
+		elif [ ${key,,} == "n" ]; then
 			echo -e "\e$yellow \nSe va a utilizar la clave que tienes en el directorio .ssh/"
 		fi
 	else
