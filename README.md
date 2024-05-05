@@ -15,7 +15,9 @@ Aquí ire incluyendo un breve índice acerca del contenido que vaya subiendo en 
 ### 2. ansible
   Como su nombre indica, consiste en un directorio donde guardaré el contenido relacionado con Ansible, más concretamente las playbooks.
   Por el momento, este directorio contiene otro directorio con las siguientes playbooks:
-  - **ansibleConfig**  -  *Playbook que llama a un rol el cual establecerá los archivos de configuración de ansible con la configuración que necesitare.*
+  - **ansibleConfig**  -  *Un directorio que contiene una Playbook que llama a un rol el cual establecerá los archivos de configuración de ansible con la configuración que necesitaré para realizar el proyecto.*
+  - **updatePackages** -  *Una playbook que consiste como su propio nombre indica en actualizar los paquetes de los ***nodos administrados*** antes de comenzar con la instalación de los servicios.*
+  - **installWordpress**  -  *Playbook que automatiza la instalación de un gestor de contenido en una máquina desde 0. Esta playbook aún no está terminada, pues esta consistirá en llamar a dos roles, uno que instale Apache, y otra que descargue e instale Wordpress. Por ahora solo está hecho uno de esos roles.*
 ### 3. test_machines
   Para la realización de las playbooks y comprobación del funcionamiento de estas, antes de pasar al entorno real de AWS y Proxmox, estoy escribiendo el código y realizando las pruebas en máquinas virtuales. En este directorio se encuentran los vagrantfiles necesarios para levantar y utilizar dichas máquinas.
   - **master_tests**  -  *La máquina donde estoy realizando las pruebas del nodo administrador. Con Debian12*
