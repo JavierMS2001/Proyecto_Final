@@ -1,0 +1,5 @@
+---
+db_name: "bdwordpress"        # Wordpress database name
+db_user: "wordpress-user"     # Wordpress database username
+db_password: "1234"           # Wordpress user password
+db_host: "192.168.10.33"        # Datbase server IP 

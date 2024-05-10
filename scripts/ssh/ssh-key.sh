@@ -15,7 +15,7 @@ green="[32m"
 
 params=$#
 users=$1
-key_path=/root/.ssh/id_rsa.pub
+key_path=$HOME/.ssh/id_rsa
 
 
 	####	  FUNCIONES	####

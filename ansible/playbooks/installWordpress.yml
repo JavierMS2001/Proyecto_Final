@@ -3,3 +3,4 @@
   hosts: wordpress-1, wordpress-2
   roles:
     - role: install-apache
+    - role: install-wordpress

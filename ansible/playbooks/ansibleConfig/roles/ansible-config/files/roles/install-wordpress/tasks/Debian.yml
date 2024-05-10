@@ -1,0 +1,44 @@
+---
+- name: Instalar paquetes requeridos
+  apt:
+    name:
+      - php
+      - php-gd
+      - php-xml
+      - php-mbstring
+      - php-mysql
+    state: latest
+  retries: 3
+  delay: 10
+
+- name: Reiniciar servicio web Apache
+  service:
+    name: apache2
+    state: restarted
+
+- name: Descargar Wordpress
+  get_url:
+    url: "https://wordpress.org/latest.tar.gz"
+    dest: "/var/www/html/wordpress.tar.gz"
+
+- name: Extraer archivos Wordpress
+  unarchive:
+    src: "/var/www/html/wordpress.tar.gz"
+    dest: "/var/www/html/"
+    remote_src: yes
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Establecer configuración de Wordpress
+  template:
+    src: "files/{{ ansible_os_family }}/wp-config.php"
+    dest: "/var/www/html/wordpress/wp-config.php"
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Reiniciar servicio web Apache
+  service:
+    name: apache2
+    state: restarted
