@@ -1,5 +1,5 @@
 ---
-- name: Install MariaDB and others necessary modules
+- name: Instalando MariaDB y otros módulos necesarios...
   yum:
         name:
                 - mariadb-server
@@ -7,26 +7,26 @@
                 - python3-PyMySQL
         state: latest
 
-- name: Restart MariaDB
+- name: Reiniciando MariaDB
   service:
           name: mariadb
           enabled: true
           state: restarted
 
-- name: Use mysql_secure_installation to set password.
+- name: Usando mysql_secure_installation para establecer una contrseña de Root.
   shell: |
           echo -e "\nn\nY\n{{ db_root_pass }}\n{{ db_root_pass }}\nY\nn\nY\nY\n" | sudo mysql_secure_installation
   args:
    executable: /bin/bash
 
-- name: Create database
+- name: Creando base de datos a raíz de variables.
   mysql_db:
           name: "{{ database_name }}"
           login_user: "{{ db_root_user }}"
           login_password: "{{ db_root_pass }}"
           state: present
 
-- name: Create user to database
+- name: Creando usuario con privilegios en la base de datos.
   mysql_user:
           name: "{{ db_username }}"
           password: "{{ db_user_pass }}"
@@ -36,19 +36,19 @@
           login_password: "{{ db_root_pass }}"
           state: present
 
-- name: Enable mysql service in firewall
+- name: Habilitar el servicio mysql en el firewall.
   firewalld:
           service: mysql
           permanent: true
           state: enabled
 
-- name: Open port 3306
+- name: Abrir puerto 3306
   firewalld:
           port: 3306/tcp
           permanent: true
           state: enabled
 
-- name: Restart firewall
+- name: Reiniciar firewall
   systemd:
           name: firewalld
           state: restarted
