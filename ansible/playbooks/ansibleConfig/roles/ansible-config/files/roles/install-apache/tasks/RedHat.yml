@@ -9,7 +9,7 @@
 
 - name: Abrir puertos del servicio HTTPD con firewalld
   firewalld:
-    service: httpd
+    service: http
     permanent: true
     state: enabled
 
