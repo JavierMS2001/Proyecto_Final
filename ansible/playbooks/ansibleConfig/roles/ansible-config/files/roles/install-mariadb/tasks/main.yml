@@ -1,0 +1,55 @@
+---
+- name: Install MariaDB and others necessary modules
+  yum:
+        name:
+                - mariadb-server
+                - python3
+                - python3-PyMySQL
+        state: latest
+
+- name: Restart MariaDB
+  service:
+          name: mariadb
+          enabled: true
+          state: restarted
+
+- name: Use mysql_secure_installation to set password.
+  shell: |
+          echo -e "\nn\nY\n{{ db_root_pass }}\n{{ db_root_pass }}\nY\nn\nY\nY\n" | sudo mysql_secure_installation
+  args:
+   executable: /bin/bash
+
+- name: Create database
+  mysql_db:
+          name: "{{ database_name }}"
+          login_user: "{{ db_root_user }}"
+          login_password: "{{ db_root_pass }}"
+          state: present
+
+- name: Create user to database
+  mysql_user:
+          name: "{{ db_username }}"
+          password: "{{ db_user_pass }}"
+          priv: 'bdwordpress.*:ALL,GRANT'
+          host: '%'
+          login_user: "{{ db_root_user }}"
+          login_password: "{{ db_root_pass }}"
+          state: present
+
+- name: Enable mysql service in firewall
+  firewalld:
+          service: mysql
+          permanent: true
+          state: enabled
+
+- name: Open port 3306
+  firewalld:
+          port: 3306/tcp
+          permanent: true
+          state: enabled
+
+- name: Restart firewall
+  systemd:
+          name: firewalld
+          state: restarted
+

@@ -1,0 +1,5 @@
+---
+- name: Instalar MariaDB
+  hosts: mariadb
+  roles:
+    - role: install-mariadb
