@@ -1,0 +1,7 @@
+---
+- name: postgres_data_dir should be defined
+  assert:
+    that:
+      - postgres_data_dir is defined and postgres_data_dir != ''
+    msg: "Establece un valor al parámetro 'postgres_data_dir' en el archivo inventory."
+  when: pg_hostname is not defined or pg_hostname == ''

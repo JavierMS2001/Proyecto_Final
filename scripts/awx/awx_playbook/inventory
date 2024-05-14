@@ -1,0 +1,55 @@
+localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python3"
+
+[all:vars]
+
+dockerhub_base=ansible
+dockerhub_version=17.1.0
+
+# Common Docker parameters
+awx_task_hostname=awx
+awx_web_hostname=awxweb
+
+# Local directory that is mounted in the awx_postgres docker container to place the db in
+postgres_data_dir="/var/lib/pgdocker"
+host_port=80
+host_port_ssl=443
+docker_compose_dir="~/.awx/awxcompose"
+
+
+# PG variables
+pg_username=awx
+pg_password=awxpass
+pg_database=awx
+pg_port=5432
+
+pg_admin_password=password
+rabbitmq_password=password
+rabbitmq_erlang_cookie=cookiemonster
+
+
+# Credentials AWX
+admin_user=admin
+admin_password=password
+
+# Whether or not to create preload data for demonstration purposes
+create_preload_data=True
+
+# AWX Secret key
+# It's *very* important that this stay the same between upgrades or you will lose the ability to decrypt
+# your credentials
+secret_key=GcFrCTVFD46PRnovsfcd1eWsNpy0ztqDXKJbhnJ9
+
+
+# Build AWX with official logos
+# Requires cloning awx-logos repo as a sibling of this project.
+# Review the trademark guidelines at https://github.com/ansible/awx-logos/blob/master/TRADEMARKS.md
+awx_official=true
+
+#awx_container_search_domains=example.com,ansible.com
+# Alternate DNS servers
+awx_alternate_dns_servers="8.8.8.8,8.8.4.4"
+
+# AWX project data folder. If you need access to the location where AWX stores the projects
+# it manages from the docker host, you can set this to turn it into a volume for the container.
+project_data_dir=/var/lib/awx/projects
+

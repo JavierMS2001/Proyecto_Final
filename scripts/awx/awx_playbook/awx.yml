@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  roles:
+    - awx_check_vars
+    - awx_local_docker

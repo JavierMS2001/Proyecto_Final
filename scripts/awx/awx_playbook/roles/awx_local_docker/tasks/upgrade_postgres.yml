@@ -1,0 +1,22 @@
+---
+
+- name: Crear directorio postgres_data {{ postgres_data_dir }}
+  file:
+    path: "{{ postgres_data_dir }}"
+    state: directory
+
+- name: Obtener ruta completa del directorio postgres_data
+  shell: "echo {{ postgres_data_dir }}"
+  register: fq_postgres_data_dir
+
+- name: Registrar temporalmente contenedor docker
+  set_fact:
+    container_command: "docker run --rm -v '{{ fq_postgres_data_dir.stdout }}:/var/lib/postgresql' centos:8 bash -c "
+
+
+- name: Comprobar si existe Postgress data (ejecutar desde dentro del contenedor para acceder al archivo)
+  shell:
+    cmd: |
+      {{ container_command }} "[[ -f /var/lib/postgresql/10/data/PG_VERSION ]] && echo 'exists'"
+  register: pg_version_file
+  ignore_errors: true

@@ -1,0 +1,11 @@
+---
+# tasks file for awx_check_vars
+
+- name: admin_password debe estar definido
+  assert:
+    that:
+      - admin_password is defined and admin_password != ''
+    msg: "Establece un valor al parámetro 'admin_password' en el archivo de inventario."
+
+- include_tasks: check_docker.yml
+  when: openshift_host is not defined or openshift_host == ''
