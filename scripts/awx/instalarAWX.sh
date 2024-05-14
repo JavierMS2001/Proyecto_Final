@@ -114,14 +114,19 @@ install_ansible(){
 	fi
 }
 
-required_packets(){
-	echo -e "\e$yellow\nInstalando paquetes necesarios para la instalación de AWX.\e$white"
-	if sudo apt-get install apt-transport-https ca-certificates software-properties-common unzip gnupg2 curl -y &> /dev/null; then
+required_paquets(){
+	echo -e "\e$yellow\nInstalando paquetes necesarios para la instalación de Docker-ce.\e$white"
+	if sudo apt-get install apt-transport-https ca-certificates software-properties-common gnupg2 curl gpg -y &> /dev/null; then
 		echo -e "\e$green\nPaquetes necesarios instalados correctamente!\e$white"
 	else
-		echo -e "\e$red \nHubo un error al instalar los paquetes necesarios para instalar AWX. \e$yellow \nAsegurate de tener los repositorios actualizados, conexión a internet y prueba a ejecutar de nuevo el script. \e$white"
+		echo -e "\e$red \nHubo un error al instalar los paquetes necesarios para instalar Docker-ce. \e$yellow \nAsegurate de tener los repositorios actualizados, conexión a internet y prueba a ejecutar de nuevo el script. \e$white"
 		exit 1
 	fi
+
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+	sudo apt update
+	sudo apt install docker-ce
 
 }
 
@@ -164,11 +169,12 @@ while [ $option -ne 3 ]; do
 			echo -e "\e$green\nHas seleccionado instalar Ansible.\e$white"
 			check_requirements
 			check_ansible
+			exit
 		;;
 
 		2)
 			echo -e "\e$green\nHas seleccionado instalar AWX.\e$white"
-			required_packets
+			required_paquets
 			check_requirements
 			check_ansible
 			install_docker
@@ -176,6 +182,7 @@ while [ $option -ne 3 ]; do
 			echo -e "\e$yellow\nInstalando AWX... Espere por favor.\e$white"
 			if sudo ansible-playbook -i awx_playbook/inventory awx_playbook/awx.yml; then
 				echo -e "\e$green\nAWX instalado con éxito! Para acceder a este, acceda en un navegador a la IP del equipo donde se ha ejecutado el script.\e$white\nLas credenciales son:\nUser: admin\nPassword: password"
+				exit
 			else
 				echo -e "\e$red \nHubo un error al instalar AWX.\e$white\n"
 				exit 1
