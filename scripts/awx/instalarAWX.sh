@@ -168,13 +168,13 @@ while [ $option -ne 3 ]; do
 
 		2)
 			echo -e "\e$green\nHas seleccionado instalar AWX.\e$white"
-			required_packages
+			required_packets
 			check_requirements
 			check_ansible
 			install_docker
 
 			echo -e "\e$yellow\nInstalando AWX... Espere por favor.\e$white"
-			if sudo ansible-playbook -i awx_playbook/inventory awx_playbook/awx.yml &> /dev/null; then
+			if sudo ansible-playbook -i awx_playbook/inventory awx_playbook/awx.yml; then
 				echo -e "\e$green\nAWX instalado con éxito! Para acceder a este, acceda en un navegador a la IP del equipo donde se ha ejecutado el script.\e$white\nLas credenciales son:\nUser: admin\nPassword: password"
 			else
 				echo -e "\e$red \nHubo un error al instalar AWX.\e$white\n"
