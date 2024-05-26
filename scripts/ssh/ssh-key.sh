@@ -119,7 +119,7 @@ ssh_copy_pem(){
 		if [[ $host != "host" ]]; then
 			echo -e "\e$yellow \nAgregando clave SSH a $host para el usuario $user en la máquina $host...\n\e$white"
 
-			if ssh-copy-id -o IdentityFile=vockey.pem "$user@$host" &> /dev/null ; then
+			if ssh-copy-id -f -o IdentityFile=vockey.pem "$user@$host" &> /dev/null ; then
 				echo -e "\e$green \nClave importada con éxito en $host\n"
 			else
 				echo -e "\e$red \nLa clave no se ha podido importar en $host\n"

@@ -13,3 +13,7 @@ wordpress ansible_host=192.168.10.32
 [redhat]
 
 mariadb ansible_host=192.168.10.33
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=admin
