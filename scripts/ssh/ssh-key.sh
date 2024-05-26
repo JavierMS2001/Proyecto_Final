@@ -16,7 +16,7 @@ green="[32m"
 params=$#
 users=$1
 key_path=$HOME/.ssh/id_rsa
-
+option=0
 
 	####	  FUNCIONES	####
 
@@ -82,7 +82,7 @@ check_rsa_id(){
 
 key_gen(){
 	if ssh-keygen -t rsa -b 4096 -N "" <<< $'\n' &> /dev/null ; then
-		echo -e "\e$green \nKey generada exitosamente!\e$white"
+		echo -e "\e$green\nKey generada exitosamente!\e$white"
 	else
 		echo -e "\e$red \nHubo un fallo al generar la key!\e$yellow"
 		echo -e "Asegurate de que no haya un id_rsa.pub en el directorio .ssh/ ya existente!\e$white"
@@ -90,8 +90,13 @@ key_gen(){
 	fi
 }
 
+quest(){
+	echo -e "\e$yellow\n¿Deseas autenticarte mediante contraseña o mediante archivo pem?\e$white"
+	echo -e "1. Contraseña"
+	echo -e "2. Clave pem"
+}
 
-ssh_copy(){
+ssh_copy_password(){
 	while IFS=',' read -r user password host || [ -n "$host" ]; 
 	do
 		if [[ $host != "host" ]]; then
@@ -108,10 +113,47 @@ ssh_copy(){
 	echo -e "\e$yellow \nAVISO!\e$white Recuerda confirmar que puedes conectarte a las máquinas con: ssh <usuario>@<host>\e$white"
 }
 
+ssh_copy_pem(){
+	while IFS=',' read -r user host || [ -n "$host" ]; 
+	do
+		if [[ $host != "host" ]]; then
+			echo -e "\e$yellow \nAgregando clave SSH a $host para el usuario $user en la máquina $host...\n\e$white"
+
+			if ssh-copy-id -o IdentityFile=vockey.pem "$user@$host" &> /dev/null ; then
+				echo -e "\e$green \nClave importada con éxito en $host\n"
+			else
+				echo -e "\e$red \nLa clave no se ha podido importar en $host\n"
+			fi
+		fi
+	done < "$users"
+
+	echo -e "\e$yellow \nAVISO!\e$white Recuerda confirmar que puedes conectarte a las máquinas con: ssh <usuario>@<host>\e$white"
+}
+
+
 	####	  COMIENZO	####
 
 check_param
 check_users_file
 check_sshpass
 check_rsa_id
-ssh_copy
+
+while [ $option -ne 3 ]; do
+	quest
+	read option
+	case $option in
+		1)
+			ssh_copy_password
+			exit
+		;;
+
+		2)
+			ssh_copy_pem
+			exit
+		;;
+
+		*)
+			echo -e "\e$red\nValor añadido incorrecta! \e$yellow\nTrata de introducir una opción válida.\e$white"
+		;;
+	esac
+done
