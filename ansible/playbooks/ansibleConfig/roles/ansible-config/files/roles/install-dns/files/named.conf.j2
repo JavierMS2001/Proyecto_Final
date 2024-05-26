@@ -1,0 +1,24 @@
+options {
+    directory "/var/cache/bind";
+
+    recursion yes;
+    allow-query { any; };
+
+    forwarders {
+        8.8.8.8;
+        8.8.4.4;
+    };
+
+    dnssec-validation auto;
+
+    auth-nxdomain no;
+    listen-on { any; };
+};
+
+zone "proyecto.com" {
+    type master;
+    file "/etc/bind/db.proyecto.com";
+};
+
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";

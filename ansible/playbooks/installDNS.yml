@@ -1,0 +1,6 @@
+---
+- name: Instalar y configurar servidor DNS
+  hosts: dns
+  become: yes
+  roles:
+    - install-dns

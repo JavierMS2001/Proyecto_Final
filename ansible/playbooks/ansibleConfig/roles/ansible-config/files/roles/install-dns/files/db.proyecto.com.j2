@@ -1,0 +1,13 @@
+$TTL 604800
+@ IN SOA ns1.proyecto.com. root.proyecto.com. (
+        2         ; Serial
+        604800     ; Refresh
+        86400      ; Retry
+        2419200    ; Expire
+        604800 )   ; Negative Cache TTL
+;
+@       IN  NS      ns1.proyecto.com.
+ns1     IN  A       192.168.10.31
+dns     IN  A       192.168.10.31
+wordpress IN A      192.168.10.32
+mariadb IN A        192.168.10.33

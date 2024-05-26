@@ -1,6 +1,6 @@
 ---
 - name: Instalar Wordpress
-  hosts: wordpress-1, wordpress-2
+  hosts: wordpress
   roles:
     - role: install-apache
     - role: install-wordpress

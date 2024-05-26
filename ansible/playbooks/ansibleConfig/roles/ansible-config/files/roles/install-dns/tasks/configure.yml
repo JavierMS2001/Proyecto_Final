@@ -1,0 +1,22 @@
+---
+- name: Copiar archivo de configuración de named.conf
+  template:
+    src: files/named.conf.j2
+    dest: /etc/bind/named.conf
+
+- name: Copiar archivo de zona DNS
+  template:
+    src: files/db.proyecto.com.j2
+    dest: /etc/bind/db.proyecto.com
+
+- name: Reiniciar servicio bind9
+  service:
+    name: bind9
+    state: restarted
+
+- name: Asegurarse de que bind9 está habilitado y ejecutándose
+  service:
+    name: bind9
+    state: started
+    enabled: yes
+
