@@ -1,11 +1,16 @@
 ---
 - name: Instalando MariaDB y otros módulos necesarios...
-  yum:
+  apt:
         name:
                 - mariadb-server
                 - python3
-                - python3-PyMySQL
-        state: latest
+                - python3-mysqldb
+                - ufw
+        state: present
+
+- name: Habilitar UFW
+  ufw:
+    state: enabled
 
 - name: Reiniciando MariaDB
   service:
@@ -18,6 +23,12 @@
           echo -e "\nn\nY\n{{ db_root_pass }}\n{{ db_root_pass }}\nY\nn\nY\nY\n" | sudo mysql_secure_installation
   args:
    executable: /bin/bash
+
+- name: Reiniciar mariadb
+  service:
+    name: mariadb
+    enabled: true
+    state: restarted
 
 - name: Creando base de datos a raíz de variables.
   mysql_db:
@@ -36,20 +47,12 @@
           login_password: "{{ db_root_pass }}"
           state: present
 
-- name: Habilitar el servicio mysql en el firewall.
-  firewalld:
-          service: mysql
-          permanent: true
-          state: enabled
-
-- name: Abrir puerto 3306
-  firewalld:
-          port: 3306/tcp
-          permanent: true
-          state: enabled
+- name: Abrir puerto 3306 - UFW
+  ufw:
+    rule: allow
+    port: "3306"
 
 - name: Reiniciar firewall
-  systemd:
-          name: firewalld
-          state: restarted
+  ufw:
+          state: reloaded
 
