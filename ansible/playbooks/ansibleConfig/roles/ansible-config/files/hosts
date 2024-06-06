@@ -7,9 +7,9 @@
 
 [debian]
 
-dns ansible_host="{{ nodo_a }}"
-wordpress ansible_host="{{ nodo_b }}"
-mariadb ansible_host="{{ nodo_c }}"
+dns ansible_host=192.168.10.31
+wordpress ansible_host=192.168.10.32
+mariadb ansible_host=192.168.10.33
 
 [all:vars]
 ansible_connection=ssh
