@@ -52,6 +52,11 @@
     rule: allow
     port: "3306"
 
+- name: Abrir puerto 22 - UFW
+  ufw:
+    rule: allow
+    port: "22"
+
 - name: Reiniciar firewall
   ufw:
           state: reloaded
